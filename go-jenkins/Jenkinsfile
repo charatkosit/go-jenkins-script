@@ -19,7 +19,7 @@ pipeline {
         stage('Deploy Jenkins Script') {
             steps {
                 echo 'deploy jenkins script'
-                // sh '. /home/ec2-user/script/front/build-front-uat.sh'
+                sh '. /home/ec2-user/update-aws-jenkins.sh'
                 sh 'curl -X POST -H "Authorization: Bearer ${tokenLineF}" -F "message=Jenkins script Updated" https://notify-api.line.me/api/notify'
                
                 
