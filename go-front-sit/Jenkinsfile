@@ -4,6 +4,7 @@ pipeline {
     }
     environment {
         tokenLineF = 'KU7zIs892MzQrur12rZSsEQCxGyDtHFEWDQiyir87zv'
+        PATH = '/home/ec2-user/script/front/:$PATH'
 
     }
     stages {
@@ -13,7 +14,7 @@ pipeline {
                 echo 'prepare build'
                 git branch: 'main', url: 'https://github.com/charatkosit/go-template.git'
                 // sh 'chmod +x -R ${env.WORKSPACE}'
-                sh '. /home/ec2-user/script/front/envFrontWithSIT.sh'
+                sh '. envFrontWithSIT.sh'
                 // sh 'curl -X POST -H "Authorization: Bearer ${tokenLineF}" -F "message=SIT prepare Code OK" https://notify-api.line.me/api/notify'
             }
         }
@@ -21,7 +22,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Build Docker step'
-                sh '. /home/ec2-user/script/front/build-front-sit.sh'
+                sh '. build-front-sit.sh'
                 // sh 'curl -X POST -H "Authorization: Bearer ${tokenLineF}" -F "message=SIT build Code OK" https://notify-api.line.me/api/notify'
                
                 
@@ -32,7 +33,7 @@ pipeline {
             steps {
                 echo 'Testing..'
                 sh 'docker login -u "charat" -p "Do#5898791"'
-                sh '. /home/ec2-user/script/front/dockerPush-front-sit.sh'
+                sh '. dockerPush-front-sit.sh'
                 // sh 'curl -X POST -H "Authorization: Bearer ${tokenLineF}" -F "message=SIT push DockerHub OK" https://notify-api.line.me/api/notify'
                
             }
