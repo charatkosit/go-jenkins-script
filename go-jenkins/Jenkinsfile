@@ -12,6 +12,7 @@ pipeline {
             steps {
                 echo 'prepare build'
                 git branch: 'main', url: 'https://github.com/charatkosit/go-jenkins.git'
+                sh 'chmod +x -R ${env.WORKSPACE}'
                 sh 'curl -X POST -H "Authorization: Bearer ${tokenLineF}" -F "message=Jenkins script prepared" https://notify-api.line.me/api/notify'
             }
         }
