@@ -5,7 +5,7 @@ pipeline {
     environment {
         tokenLineF = 'KU7zIs892MzQrur12rZSsEQCxGyDtHFEWDQiyir87zv'
         PATH = '/home/ec2-user/script/front/:$PATH'
-
+     
     }
     stages {
         
@@ -13,11 +13,10 @@ pipeline {
             steps {
                 echo 'prepare build'
                 git branch: 'main', url: 'https://github.com/charatkosit/go-template.git'
-                withEnv(['PATH+EXTRA=/usr/sbin:/usr/bin:/sbin:/bin']) {
-                sh 'chmod +x -R ${env.WORKSPACE}'
+                // sh 'chmod +x -R ${env.WORKSPACE}'
                 sh '. envFrontWithUAT.sh'
                 // sh 'curl -X POST -H "Authorization: Bearer ${tokenLineF}" -F "message=UAT prepare Code OK" https://notify-api.line.me/api/notify'
-                }
+                
             }
         }
         
